@@ -1,0 +1,17 @@
+.wrapper {
+    background-color: #E5E5E5;
+}
+
+.main-container {
+    box-sizing: border-box;
+    max-width: 1010px;
+    margin: 0 auto;
+    padding: 23px 16px 217px 16px;
+    background-color: white;
+}
+
+@media (min-width: 768px) {
+    .main-container {
+        padding: 23px 36px 217px 36px;
+    }
+}
