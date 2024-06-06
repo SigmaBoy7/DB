@@ -1,18 +1,18 @@
 .film-title {
-    font-size: 20px;
-    font-weight: 400;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .film-tag_list {
-    padding: 0px;
-    margin: 0px;
-    margin-top: 7px;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 7px;
 }
 
-.film-tag_list>li {
-    list-style: none;
+.film-tag_list > li {
+  list-style: none;
 }
 
 .film-overview {
-    margin-top: 7px;
+  margin-top: 7px;
 }

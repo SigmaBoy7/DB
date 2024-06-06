@@ -1,10 +1,12 @@
 class FilmsClient {
-  constructor() {
-    this.url = 'https://api.themoviedb.org/3/search/movie?query=return';
-  }
+  async getFilms(search = 'return', page = 1) {
+    if (!search) {
+      search = 'return';
+    }
 
-  async getFilms() {
-    const films = await fetch(this.url, {
+    const url = `https://api.themoviedb.org/3/search/movie?query=${search}&page=${page}`;
+
+    const films = await fetch(url, {
       method: 'GET',
       headers: {
         Authorization:
