@@ -21,7 +21,11 @@ function FilmRateBlock({ filmRate }) {
           ? { backgroundColor: '#E9D100' }
           : { backgroundColor: '#66E900' };
 
-  return <div className="film-rate" style={style}></div>;
+  return (
+    <div className="film-rate" style={style}>
+      {filmRate}
+    </div>
+  );
 }
 
 function FilmCard({ data, filmTags }) {
