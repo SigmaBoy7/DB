@@ -61,16 +61,19 @@ export async function getRatedFilms(page) {
 
   const url = `${urlBase}/guest_session/${sessionId}/rated/movies?api_key=${'1ed74b248cb731bc36d753c0ce1c56ea'}&page=${page}`;
 
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: BEARER,
-    },
-  });
-
-  const ratedFilms = await response.json();
-  return ratedFilms;
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: BEARER,
+      },
+    });
+    const ratedFilms = await response.json();
+    return ratedFilms;
+  } catch {
+    console.log('asd');
+  }
 }
 
 export async function getGenres() {
