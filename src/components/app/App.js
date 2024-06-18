@@ -1,90 +1,92 @@
-import { React, useState, useEffect } from 'react';
-import { Spin, Alert, Space, Pagination } from 'antd';
+import React, { useState, useEffect } from 'react';
 
-import FilmsList from '../FilmsList';
+import TagsContext from '../FilmsContext';
+import SearchTab from '../SearchTabs';
+import RatedTab from '../RatedTabs';
 import SearchInput from '../SearchInput';
-import filmsClient from '../../utils/FilmsClient';
-import OfflineMesage from '../OflineMessage';
+import OfflineMessage from '../OflineMessage';
+import FilmsTabs from '../FilmsTabs';
+import AppSpiner from '../AppSpinner';
 import './App.css';
+import { getFilms, getRatedFilms, createGuestSession, getGenres } from '../../utils/FilmsClient';
 
 function App() {
-  const [filmsData, setFilmsData] = useState([]);
+  const [filmsData, setFilmsData] = useState(null);
+  const [ratedFilmsData, setRatedFilmsData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isFetchFaild, setIsFetchFaild] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [pageMode, setPageMode] = useState('Search');
   const [debouncedInputValue, setDebouncedInputValue] = useState('');
-  const [noFilmAlert, setNoFilmAlert] = useState(true);
+  const [genres, setGenres] = useState(null);
 
-  async function fetchFilms(search = 'return') {
-    let filmsData = null;
-    setNoFilmAlert(() => true);
-    try {
-      filmsData = await filmsClient.getFilms(search, currentPage);
+  async function fetchRatedFilms(page) {
+    setIsLoading(true);
+    let ratedFilmsData = await getRatedFilms(page);
+    setRatedFilmsData(ratedFilmsData);
+    setIsLoading(false);
+  }
 
-      if (!filmsData.total_results) {
-        console.log(filmsData.total_results);
-        setNoFilmAlert(() => false);
-      }
+  async function fetchFilms(search = 'return', page = 1) {
+    setIsLoading(true);
+    let filmsData = await getFilms(debouncedInputValue ? debouncedInputValue : search, page);
+    setFilmsData(filmsData);
 
-      setFilmsData(filmsData);
-      setIsLoading(false);
-    } catch {
-      setIsFetchFaild(true);
-      setIsLoading(false);
-    }
+    setIsLoading(false);
+  }
+
+  async function fetchGenres() {
+    const genres = await getGenres();
+    setGenres(() => genres);
   }
 
   useEffect(() => {
-    fetchFilms();
+    async function initializeSession() {
+      await createGuestSession();
+    }
+    const savedSearch = localStorage.getItem('search');
+    setDebouncedInputValue(() => savedSearch);
+    initializeSession();
+    fetchGenres();
   }, []);
 
   useEffect(() => {
-    fetchFilms(debouncedInputValue, currentPage);
-  }, [currentPage]);
+    if (debouncedInputValue) {
+      fetchFilms(debouncedInputValue);
+    } else {
+      fetchFilms();
+    }
+    fetchRatedFilms(1);
+  }, [debouncedInputValue, pageMode]);
 
-  const hasData = !(isLoading || isFetchFaild);
-  const errorMessage = isFetchFaild ? (
-    <Space direction="vertical" style={{ width: '100%' }}>
-      <Alert message="Что-то пошло не так" description="Вероятно проблемы с серверами" type="error" />
-    </Space>
-  ) : null;
-  const spinner = isLoading ? <Spin style={{ margin: '0 auto' }} size="big" /> : null;
-  const content = hasData ? <FilmsList filmsData={filmsData.results} /> : null;
-  const noFilmAlertBlock = !noFilmAlert ? (
-    <Alert message="Что-то пошло не так" description="Вероятно по вашему запросу ничего не найдено" type="error" />
-  ) : null;
+  function handleTabsChange(tabValue) {
+    setPageMode(() => tabValue);
+  }
+
+  const content =
+    pageMode === 'Search' ? (
+      <SearchTab filmsData={filmsData} isLoading={isLoading} fetchFilms={fetchFilms} />
+    ) : (
+      <RatedTab ratedFilmsData={ratedFilmsData} isLoading={isLoading} fetchRatedFilms={fetchRatedFilms} />
+    );
 
   return (
     <div className="wrapper">
-      <main className="main-container">
-        <header className="main-header">
-          <SearchInput
-            fetchFilms={fetchFilms}
-            debouncedInputValue={debouncedInputValue}
-            setDebouncedInputValue={setDebouncedInputValue}
-            setIsLoading={setIsLoading}
-            className="main-search"
-            setfilmsData={setFilmsData}
-          />
-        </header>
-        <div className="main-content">
-          {spinner}
-          {noFilmAlertBlock}
-          {content}
-        </div>
-        {errorMessage}
-        <footer className="main-footer">
-          <Pagination
-            disabled={isLoading || filmsData.length === 0}
-            onChange={(value) => {
-              setCurrentPage(() => value);
-            }}
-            defaultCurrent={1}
-            total={50}
-          />
-        </footer>
-      </main>
-      <OfflineMesage />
+      <TagsContext.Provider value={genres}>
+        <main className="main-container">
+          <header className="main-header">
+            <FilmsTabs handleTabsChange={handleTabsChange} setPageMode={setPageMode} />
+            {pageMode === 'Search' ? (
+              <SearchInput
+                className="main-search"
+                debouncedInputValue={debouncedInputValue}
+                setDebouncedInputValue={setDebouncedInputValue}
+              />
+            ) : null}
+          </header>
+          <AppSpiner isLoading={isLoading} />
+          {filmsData ? content : null}
+        </main>
+        <OfflineMessage />
+      </TagsContext.Provider>
     </div>
   );
 }

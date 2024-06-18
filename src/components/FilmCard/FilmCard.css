@@ -9,10 +9,21 @@
   margin-top: 7px;
 }
 
-.film-tag_list > li {
+.film-tag_list>li {
   list-style: none;
+}
+
+.film-rate {
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  height: 50px;
+  width: 50px;
+  border-radius: 180px;
+  background-color: #E90000;
 }
 
 .film-overview {
   margin-top: 7px;
+  margin-bottom: 10px;
 }

@@ -1,7 +1,7 @@
-import { React, useState, useEffect, useCallback } from 'react';
+import { React, useState, useCallback, useEffect } from 'react';
 import { Input } from 'antd';
 
-export default function SearchInput({ setIsLoading, debouncedInputValue, setDebouncedInputValue, fetchFilms }) {
+export default function SearchInput({ debouncedInputValue, setDebouncedInputValue }) {
   const [inputValue, setInputValue] = useState('');
 
   const debounceInput = useCallback((fn) => {
@@ -11,24 +11,22 @@ export default function SearchInput({ setIsLoading, debouncedInputValue, setDebo
       clearTimeout(timer);
       timer = setTimeout(() => {
         fn.apply(this, args);
-      }, 2000);
+      }, 2500);
     };
   });
+
+  useEffect(() => {
+    const savedSearch = localStorage.getItem('search');
+    setInputValue(() => savedSearch);
+  }, []);
 
   const debouncedSetDebouncedInputValue = useCallback(
     debounceInput((value) => {
       setDebouncedInputValue(value);
+      localStorage.setItem('search', value);
     }, 2000),
     []
   );
-
-  useEffect(() => {
-    async function fetchData() {
-      setIsLoading(() => true);
-      fetchFilms(debouncedInputValue.trim());
-    }
-    fetchData();
-  }, [debouncedInputValue]);
 
   const handleChange = (e) => {
     const value = e.target.value;
