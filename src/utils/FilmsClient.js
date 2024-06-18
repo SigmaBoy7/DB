@@ -22,8 +22,6 @@ export async function createGuestSession() {
 }
 
 export async function getFilms(search = 'return', page) {
-  console.log(search);
-
   const url = `${urlBase}/search/movie?query=${search}&page=${page}`;
 
   const response = await fetch(url, {

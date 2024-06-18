@@ -7,7 +7,6 @@ import TagsContext from '../FilmsContext';
 function FilmsList({ filmsData }) {
   const [filmsList, setfilmsList] = useState([]);
   const tag = useContext(TagsContext);
-  console.log(filmsData);
   useEffect(() => {
     setfilmsList(() => {
       return filmsData;
