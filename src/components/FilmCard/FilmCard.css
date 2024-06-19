@@ -1,3 +1,38 @@
+.film-card {
+  display: block;
+  padding: 0,
+
+}
+
+.film-info {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 4px 4px 10px 10px;
+}
+
+.film-card-header {
+  display: flex;
+  width: 100%;
+}
+
+.film-header-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 13px;
+}
+
+h1 {
+  margin: 0;
+}
+
+.film-card-bottom {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .film-title {
   font-size: 20px;
   font-weight: 400;
@@ -17,16 +52,75 @@
   position: absolute;
   right: 15px;
   top: 5px;
-  height: 50px;
-  width: 50px;
+  height: 30px;
+  width: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 180px;
-  background-color: #E90000;
+}
+
+.film-rate_color {
+  position: absolute;
+  right: 2.5px;
+  top: 3px;
+  height: 25px;
+  width: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 180px;
+  background-color: white;
 }
 
 .film-overview {
   margin-top: 7px;
   margin-bottom: 10px;
+}
+
+.film-left {
+  display: none;
+}
+
+.film-stars {
+  width: 118%;
+  display: flex;
+  margin-top: 20px;
+}
+
+
+@media (min-width: 768px) {
+  .film-info {
+    padding: 5px;
+  }
+
+  .film-left {
+    display: block;
+  }
+
+  .film-card {
+    display: flex;
+    padding: 0;
+  }
+
+  .film-img {
+    display: none;
+    padding: 0;
+  }
+
+  .film-rate {
+    right: -15px;
+    top: 5px;
+    height: 30px;
+    width: 30px;
+
+  }
+
+  .film-rate_color {
+    right: 2.5px;
+    top: 2.5px;
+    height: 25px;
+    width: 25px;
+  }
+
 }

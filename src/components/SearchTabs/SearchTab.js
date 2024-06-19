@@ -34,6 +34,8 @@ function SearchTabs({ filmsData, fetchFilms }) {
           current={currentPage}
           total={filmsData.total_results}
           defaultPageSize={20}
+          showSizeChanger={false}
+          size="small"
         />
       </footer>
     </div>

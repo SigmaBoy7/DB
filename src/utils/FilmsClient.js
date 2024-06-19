@@ -37,6 +37,22 @@ export async function getFilms(search = 'return', page) {
   return films;
 }
 
+export async function getFilmDetails(movieId) {
+  const url = `${urlBase}/movie/${movieId}`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: BEARER,
+      accept: 'application/json',
+    },
+  });
+
+  const filmsDetail = await response.json();
+
+  return filmsDetail;
+}
+
 export async function addRate(movieId, rate) {
   const sessionId = localStorage.getItem('guestId');
   const url = `${urlBase}/movie/${movieId}/rating?api_key=${'1ed74b248cb731bc36d753c0ce1c56ea'}&guest_session_id=${sessionId}`;

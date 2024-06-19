@@ -23,12 +23,11 @@ const FilmRate = function ({ moveId, rating }) {
   const rateEventHandler = function (e) {
     setRate(() => {
       postRate(e);
-      console.log(localStorage);
       return e;
     });
   };
 
-  return <Rate onChange={rateEventHandler} value={rate} count={10} />;
+  return <Rate onChange={rateEventHandler} value={rate} count={10} style={{ fontSize: '18px' }} />;
 };
 
 export default FilmRate;
