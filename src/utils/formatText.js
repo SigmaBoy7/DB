@@ -1,7 +1,5 @@
 export default function shortenDescription(description) {
-  const windowWidth = window.innerWidth;
-
-  const size = windowWidth >= 768 ? 70 : 200;
+  const size = 120;
 
   if (!description) {
     return 'Нету описания';

@@ -1,0 +1,28 @@
+.films-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    gap: 16px 0px
+}
+
+@media (min-width: 425px) {
+    .films-list {
+        justify-content: center;
+        align-content: center;
+        grid-template-columns: minmax(auto, 300px);
+        gap: 26px;
+    }
+}
+
+@media (min-width: 624px) {
+    .films-list {
+        grid-template-columns: auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    .films-list {
+        grid-template-columns: minmax(auto, 451px) minmax(auto, 451px);
+        gap: 36px
+    }
+}

@@ -1,66 +1,194 @@
-.film-card {
-  display: block;
-  padding: 0,
+.film-card {}
 
+.card {
+  min-height: 245px;
+  max-height: fit-content;
+  display: flex;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  padding: 5px 5px 15px 5px;
+  font-size: 12px;
 }
 
-.film-info {
-  box-sizing: border-box;
+@media (min-width: 425px) {
+
+  .card {
+    max-height: fit-content;
+    align-items: center;
+    padding: 10px 10px 15px 10px;
+  }
+}
+
+
+@media (min-width: 625px) {
+
+  .card {
+    max-height: 280px;
+    align-items: normal;
+    flex-direction: row;
+    padding: 0;
+  }
+}
+
+.card-left {
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  padding: 4px 4px 10px 10px;
+
 }
 
-.film-card-header {
-  display: flex;
+.card-info {
   width: 100%;
 }
 
-.film-header-info {
+.card-title {
   display: flex;
-  flex-direction: column;
-  margin-left: 13px;
-}
-
-h1 {
-  margin: 0;
-}
-
-.film-card-bottom {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.film-title {
+  justify-content: space-between;
   font-size: 20px;
   font-weight: 400;
 }
 
-.film-tag_list {
-  padding: 0px;
-  margin: 0px;
-  margin-top: 7px;
-}
-
-.film-tag_list>li {
-  list-style: none;
-}
-
 .film-rate {
-  position: absolute;
-  right: 15px;
-  top: 5px;
   height: 30px;
   width: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 180px;
+  margin-right: 5px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px red;
+  /* Тень с красными краями */
 }
 
-.film-rate_color {
+.card-date {
+  color: #827E7E;
+}
+
+@media (min-width: 625px) {
+
+  .card-left {
+    height: auto;
+    flex-direction: column;
+    padding: 10px 0px 15px 00px;
+
+  }
+
+}
+
+.card-stars {
+  align-self: flex-end;
+  margin-top: auto;
+}
+
+@media (min-width: 425px) {
+
+  .card-stars {
+    align-self: center;
+  }
+}
+
+.card-img-left {
+  display: none;
+}
+
+@media (min-width: 625px) {
+  .card-stars {
+    align-self: flex-end;
+  }
+
+  .card-img-left {
+    display: block;
+    width: 183px;
+    height: 280px;
+    object-fit: cover;
+    margin-right: 13px;
+  }
+
+}
+
+
+.card-header {
+  position: relative;
+  height: fit-content;
+  display: flex;
+  margin-bottom: 10px;
+
+
+  .card-img {
+    width: 60px;
+    height: 91px;
+    object-fit: cover;
+    margin-right: 13px;
+  }
+
+
+  @media (min-width: 425px) {
+    .card-img {
+      width: 100%;
+      height: 260px;
+      object-fit: contain;
+      margin-bottom: 10px;
+      margin-right: 0;
+    }
+
+    .card-tags {
+      justify-content: center;
+    }
+
+  }
+
+  @media (min-width: 625px) {
+
+    .card-img {
+      display: none;
+    }
+  }
+
+  .card-title {
+    margin-bottom: 10px;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px;
+    margin: 0px;
+    justify-content: left;
+
+    >* {
+      margin-top: 5px;
+    }
+  }
+
+}
+
+
+
+@media (min-width: 425px) {
+  .card-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .card-bottom {
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 625px) {
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .card-bottom {}
+}
+
+
+/* .film-rate_color {
   position: absolute;
   right: 2.5px;
   top: 3px;
@@ -69,58 +197,6 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 180px;
+  border-radius: 50%;
   background-color: white;
-}
-
-.film-overview {
-  margin-top: 7px;
-  margin-bottom: 10px;
-}
-
-.film-left {
-  display: none;
-}
-
-.film-stars {
-  width: 118%;
-  display: flex;
-  margin-top: 20px;
-}
-
-
-@media (min-width: 768px) {
-  .film-info {
-    padding: 5px;
-  }
-
-  .film-left {
-    display: block;
-  }
-
-  .film-card {
-    display: flex;
-    padding: 0;
-  }
-
-  .film-img {
-    display: none;
-    padding: 0;
-  }
-
-  .film-rate {
-    right: -15px;
-    top: 5px;
-    height: 30px;
-    width: 30px;
-
-  }
-
-  .film-rate_color {
-    right: 2.5px;
-    top: 2.5px;
-    height: 25px;
-    width: 25px;
-  }
-
-}
+} */
